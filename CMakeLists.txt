@@ -1,9 +1,8 @@
-cmake_minimum_required(VERSION 3.15)
-project(Fusion)
+# CMakeLists.txt adapted to allow build within ESP-IDF framework
 
-add_subdirectory("Fusion")
-add_subdirectory("Examples/Advanced")
-add_subdirectory("Examples/Simple")
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    add_subdirectory("Python/Python-C-API") # do not include when run by CI
-endif()
+file(GLOB_RECURSE SOURCES ./Fusion/*.c )
+
+set(INCLUDE_DIRS ./Fusion)
+
+idf_component_register(SRCS ${SOURCES}
+                       INCLUDE_DIRS ${INCLUDE_DIRS})
